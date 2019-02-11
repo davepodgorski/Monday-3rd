@@ -2,6 +2,7 @@ class PicturesController < ApplicationController
   def new
       @picture = Picture.new
     end
+
   def create
     @picture = Picture.new
 
@@ -18,8 +19,10 @@ class PicturesController < ApplicationController
         render :new
       end
     end
+
   def index
-    @pictures = Picture.all
+        @most_recent_pictures = Picture.most_recent_five
+        @pictures = Picture.where("created_at > ?", Time.now - 1.month)
   end
   def show
     @picture = Picture.find(params[:id])
@@ -47,6 +50,6 @@ class PicturesController < ApplicationController
     @picture.destroy
     redirect_to "/pictures"
   end
-  
+
 
 end
