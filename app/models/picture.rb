@@ -10,4 +10,8 @@ class Picture < ApplicationRecord
   def self.created_before(time)
     Picture.where("created_at < ?", time)
   end
+
+  validates :artist, prescence: true
+  validates :title, presence: true length: {minimum: 3, maximum: 20}
+  validates :url, presence: true, uniqueness: true
 end
